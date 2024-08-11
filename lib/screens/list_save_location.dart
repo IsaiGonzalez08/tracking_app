@@ -26,8 +26,7 @@ class _ListSaveLocationScreenState extends State<ListSaveLocationScreen> {
   Future<void> _clearLocations() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('locations');
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -73,7 +72,7 @@ class _ListSaveLocationScreenState extends State<ListSaveLocationScreen> {
                           children: [
                             Text(
                                 'Latitude: ${location.latitude}, Longitude: ${location.longitude}'),
-                            const Text('CP:')
+                            Text('CP: ${location.postalCode}')
                           ],
                         ),
                       ),

@@ -38,6 +38,8 @@ dependencies:
   permission_handler: ^11.3.0
   geolocator: ^11.0.0
   shared_preferences: ^2.3.1
+  dio: ^5.5.0+1
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +57,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/.env
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tracking_app/models/address.dart';
 import 'package:tracking_app/models/location.dart';
 import 'package:tracking_app/providers/location_provider.dart';
 import 'package:tracking_app/screens/list_save_location.dart';
@@ -21,6 +24,7 @@ class _LocationScreenState extends State<LocationScreen> {
     bool isLocationPermissionGranted = await waitProvider.checkPermission();
     if (!isLocationPermissionGranted) {
       showModalBottomSheet(
+        // ignore: use_build_context_synchronously
         context: context,
         builder: (BuildContext context) {
           return const LocationAlert();
@@ -40,7 +44,8 @@ class _LocationScreenState extends State<LocationScreen> {
     }
   }
 
-  Future<void> saveLocation(double latitude, double longitude) async {
+  Future<void> saveLocation(
+      double latitude, double longitude, String postalCode) async {
     final prefs = await SharedPreferences.getInstance();
 
     final String? locationsString = prefs.getString('locations');
@@ -51,17 +56,12 @@ class _LocationScreenState extends State<LocationScreen> {
       locations = locationsJson.map((json) => Location.fromJson(json)).toList();
     }
 
-    locations.add(Location(latitude: latitude, longitude: longitude));
+    locations.add(Location(
+        latitude: latitude, longitude: longitude, postalCode: postalCode));
 
     final String updatedLocationsString =
         jsonEncode(locations.map((loc) => loc.toJson()).toList());
     await prefs.setString('locations', updatedLocationsString);
-  }
-
-  @override
-  void initState() {
-    _showAlertPermissionsLocation();
-    super.initState();
   }
 
   Future<void> _handleLocationNow() async {
@@ -89,16 +89,48 @@ class _LocationScreenState extends State<LocationScreen> {
 
     try {
       Location location = await getUserLocation();
-      await saveLocation(location.latitude, location.longitude);
-      print('Ubicación guardada en SharedPreferences');
+      print('Ubicación: ${location.latitude} ${location.longitude}');
+      final address = await getAddress(
+          location.latitude.toString(), location.longitude.toString());
+      print('El codigo postal de ubicación es: ${address.postalCode}');
+      await saveLocation(
+          location.latitude, location.longitude, address.postalCode);
     } catch (e) {
+      // ignore: avoid_print
       print('Error fetching location: $e');
     } finally {
       Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
               builder: (context) => const ListSaveLocationScreen()));
     }
+  }
+
+  Future<Address> getAddress(String latitude, String longitude) async {
+    final dio = Dio();
+    final String token = dotenv.env['HERE_MAPS_API_TOKEN'] ?? '';
+    try {
+      final response = await dio.get(
+        'https://browse.search.hereapi.com/v1/browse',
+        queryParameters: {"apiKey": token, "at": "$latitude,$longitude"},
+      );
+      if (response.data['items'] != null && response.data['items'].isNotEmpty) {
+        final firstItem = response.data['items'][0];
+        final address = Address.fromJson(firstItem);
+        return address;
+      } else {
+        throw ('No se encontraron direcciones para la ubicación proporcionada');
+      }
+    } catch (e) {
+      throw ('el error es $e');
+    }
+  }
+
+  @override
+  void initState() {
+    _showAlertPermissionsLocation();
+    super.initState();
   }
 
   @override

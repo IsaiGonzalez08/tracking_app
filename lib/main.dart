@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tracking_app/screens/location_screen.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: "assets/.env");
   runApp(const MyApp());
 }
 
