@@ -97,7 +97,6 @@ class _LocationAlertState extends State<LocationAlert> {
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             child: InkWell(
               onTap: () {
-                _controller.request();
                 Navigator.pop(context);
               },
               child: const Center(
