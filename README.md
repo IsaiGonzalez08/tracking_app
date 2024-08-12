@@ -14,3 +14,17 @@ Algunas de las tecnologías utilizadas para el desarrollo de esta app son:
 - [shared_preferences] - Persistencia de datos.    
 - [dio] - Gestión de peticiones a la API. 
 
+## Uso de proyecto
+
+Como primer vista tenemos al botón que nos permite obtener la ubicación del disposito, que se ve de la siguiente manera:
+
+<img src="https://github.com/user-attachments/assets/669a03fc-25f1-445c-b721-93dda196d273" alt="init" width="200"/>
+
+Si el usuario presiona el botón LOCATION NOW la app obtendra la ubicación del dispositivo:
+
+<img src="https://github.com/user-attachments/assets/8e493b5e-c34d-4a2d-9bd9-0ee11a58f620" alt="init" width="200"/>
+
+La lista de ubicaciones que se hayan obtenido se mostraran en una lista en otra vista:
+
+<img src="https://github.com/user-attachments/assets/4aa7ce9d-1c5d-4862-95db-d296897e8960" alt="init" width="200"/>
+
