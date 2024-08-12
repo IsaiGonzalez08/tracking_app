@@ -1,16 +1,16 @@
 # tracking_app
 
-A new Flutter project.
+Tracking app permite obtener la ubicación de un dispositivo mediante un botón, algunas de sus funcionalidades son:
 
-## Getting Started
+- Obtener la ubicación del dispositivo.
+- Almacenar las ubicaciones y mostrarlas en una lista. 
+- Obtener el codigo postal de cada ubicación guardada.
 
-This project is a starting point for a Flutter application.
+### Uso de herramientas
+Algunas de las tecnologías utilizadas para el desarrollo de esta app son:
 
-A few resources to get you started if this is your first Flutter project:
+- [permission_handler] - Solicitar permisos para utilizar la ubicación del dispositivo.    
+- [geolocator] - Obtener la ubicación del dispositivo.    
+- [shared_preferences] - Persistencia de datos.    
+- [dio] - Gestión de peticiones a la API. 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
