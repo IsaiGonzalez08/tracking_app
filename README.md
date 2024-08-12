@@ -12,7 +12,24 @@ Algunas de las tecnologías utilizadas para el desarrollo de esta app son:
 - [permission_handler] - Solicitar permisos para utilizar la ubicación del dispositivo.    
 - [geolocator] - Obtener la ubicación del dispositivo.    
 - [shared_preferences] - Persistencia de datos.    
-- [dio] - Gestión de peticiones a la API. 
+- [dio] - Gestión de peticiones a la API.
+
+## Para empezar
+
+### Guía de instalación para el proyecto
+  
+El primer paso es clonar el repositorio del proyecto, esto lo hacemos con el siguiente comando:  
+
+- git clone [https://github.com/IsaiGonzalez08/tracking_app.git](https://github.com/IsaiGonzalez08/tracking_app.git)
+
+
+El siguiente paso es realizar la instalación de las dependencias de flutter necesarias para que el proyecto pueda funcionar, para esto tenemos que ejecutar el siguiente comando:  
+
+- flutter pub get  
+
+Una vez termine la instalación las dependencias podremos ejecutar el proyecto, para esto podemos utilizar el siguiente comando:  
+
+- flutter run
 
 ## Uso de proyecto
 
